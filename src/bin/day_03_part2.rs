@@ -37,6 +37,12 @@ impl From<&str> for Step {
 }
 
 fn get_vector(steps: Vec<Step>) -> Vec<Point> {
+    fn push_into_vec(v: &mut Vec<Point>, point: &Point) {
+        v.push(v.last().unwrap().displace(&point));
+    }
+    fn push_into_vec_n(mut v: &mut Vec<Point>, num: u32, point: Point) -> () {
+        (0..num).for_each(|_| push_into_vec(&mut v, &point))
+    }
     let mut v = vec![Point(0, 0)];
     steps.iter().for_each(|x| match x {
         Step {
@@ -59,13 +65,6 @@ fn get_vector(steps: Vec<Step>) -> Vec<Point> {
     v
 }
 
-fn push_into_vec_n(mut v: &mut Vec<Point>, num: u32, point: Point) -> () {
-    (0..num).for_each(|_| push_into_vec(&mut v, &point))
-}
-
-fn push_into_vec(v: &mut Vec<Point>, point: &Point) {
-    v.push(v.last().unwrap().displace(&point));
-}
 fn solve(input: &str) {
     let points = input
         .lines()
@@ -78,16 +77,16 @@ fn solve(input: &str) {
         .filter(|x| first_line.contains(x))
         .collect();
     // For each intersection, find the number of steps to it
-    let steps: Vec<usize> = intersections
+    let min_dist = intersections
         .iter()
         .map(|intr| {
             points[0].iter().position(|x| x == *intr).unwrap()
                 + points[1].iter().position(|x| x == *intr).unwrap()
         })
         .filter(|x| *x != 0)
-        .collect();
+        .min();
 
-    dbg!(steps.iter().min());
+    dbg!(min_dist);
 }
 fn main() {
     let points = include_str!("day_03_data.txt");
