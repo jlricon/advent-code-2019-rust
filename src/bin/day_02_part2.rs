@@ -18,7 +18,7 @@ impl From<usize> for OpCode {
 }
 
 fn main() {
-    for (i, j) in inproduct!(0..100, 0.100) {
+    for (i, j) in iproduct!(0..100, 0..100) {
         let res = calc_for_param(i, j);
         if res == 19690720 {
             dbg!(100 * i + j);
