@@ -72,13 +72,11 @@ fn solve(input: &str) {
         .map(get_vector)
         .collect::<Vec<Vec<Point>>>();
     let first_line: HashSet<&Point> = HashSet::from_iter(&points[0]);
-    let intersections: Vec<&Point> = points[1]
+
+    // For each intersection, find the number of steps to it
+    let min_dist = points[1]
         .iter()
         .filter(|x| first_line.contains(x))
-        .collect();
-    // For each intersection, find the number of steps to it
-    let min_dist = intersections
-        .iter()
         .map(|intr| {
             points[0].iter().position(|x| x == *intr).unwrap()
                 + points[1].iter().position(|x| x == *intr).unwrap()
