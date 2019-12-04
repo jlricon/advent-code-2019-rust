@@ -40,19 +40,15 @@ fn calc_for_param(i: usize, j: usize) -> usize {
     let mut sp: usize = 0;
     loop {
         let op: OpCode = inp[sp].into();
-
+        let p1 = inp[sp + 1];
+        let p2 = inp[sp + 2];
+        let p3 = inp[sp + 3];
         match op {
             OpCode::Add => {
-                let p1 = inp[sp + 1];
-                let p2 = inp[sp + 2];
-                let p3 = inp[sp + 3];
                 inp[p3] = inp[p1] + inp[p2];
                 sp += 4;
             }
             OpCode::Mult => {
-                let p1 = inp[sp + 1];
-                let p2 = inp[sp + 2];
-                let p3 = inp[sp + 3];
                 inp[p3] = inp[p1] * inp[p2];
                 sp += 4;
             }
