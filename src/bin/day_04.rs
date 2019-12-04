@@ -1,47 +1,22 @@
-use itertools::EitherOrBoth;
 use itertools::Itertools;
-use std::collections::HashSet;
 
 fn is_valid(x: i32) -> bool {
     // Digits in increasing number
     // Group of two but not more
-    let stn: Vec<char> = format!("{}", x).chars().collect();
+    let chars: Vec<char> = x.to_string().chars().collect();
+    let cond1 = chars.windows(2).all(|c| c[0] <= c[1]);
+    let cond2 = chars
+        .into_iter()
+        .group_by(|k| *k)
+        .into_iter()
+        .map(|(k, v)| v.count())
+        .filter(|x| *x == 2)
+        .count()
+        >= 1;
 
-    // Digits in increasing number
-    let mut group_len = 1;
-    let mut group_lens = HashSet::new();
-    let mut lastn = &'a';
-    let cond1 = stn
-        .iter()
-        .zip_longest(stn.iter().skip(1))
-        .fold(true, |prev, x| match x {
-            EitherOrBoth::Both(x, y) => {
-                if x == y {
-                    group_len += 1;
-                } else {
-                    group_lens.insert(group_len);
-                    group_len = 1;
-                };
-                lastn = y;
-                (y >= x) & prev
-            }
-            EitherOrBoth::Left(x) => {
-                if x == lastn {
-                    group_lens.insert(group_len);
-                };
-                prev
-            }
-            _ => unreachable!(),
-        });
-    // Group of two but not more
-    let cond2 = group_lens.contains(&2);
-
-    if cond1 & cond2 {
-        true
-    } else {
-        false
-    }
+    cond1 & cond2
 }
+
 fn main() {
     // It is a six-digit number.
     //The value is within the range given in your puzzle input.
