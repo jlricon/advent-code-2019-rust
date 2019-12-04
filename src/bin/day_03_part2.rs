@@ -1,14 +1,13 @@
 use std::collections::HashSet;
 use std::iter::FromIterator;
 
-#[derive(Debug)]
 enum Directions {
     U,
     D,
     R,
     L,
 }
-#[derive(Debug)]
+
 struct Step {
     dir: Directions,
     num: u32,
@@ -37,30 +36,17 @@ impl From<&str> for Step {
 }
 
 fn get_vector(steps: Vec<Step>) -> Vec<Point> {
-    fn push_into_vec(v: &mut Vec<Point>, point: &Point) {
-        v.push(v.last().unwrap().displace(&point));
-    }
-    fn push_into_vec_n(mut v: &mut Vec<Point>, num: u32, point: Point) -> () {
-        (0..num).for_each(|_| push_into_vec(&mut v, &point))
+    fn push_into_vec_n(v: &mut Vec<Point>, num: u32, point: Point) -> () {
+        (0..num).for_each(|_| v.push(v.last().unwrap().displace(&point)))
     }
     let mut v = vec![Point(0, 0)];
+    use Directions::*;
+
     steps.iter().for_each(|x| match x {
-        Step {
-            dir: Directions::D,
-            num,
-        } => push_into_vec_n(&mut v, *num, Point(0, -1)),
-        Step {
-            dir: Directions::U,
-            num,
-        } => push_into_vec_n(&mut v, *num, Point(0, 1)),
-        Step {
-            dir: Directions::R,
-            num,
-        } => push_into_vec_n(&mut v, *num, Point(1, 0)),
-        Step {
-            dir: Directions::L,
-            num,
-        } => push_into_vec_n(&mut v, *num, Point(-1, 0)),
+        Step { dir: D, num } => push_into_vec_n(&mut v, *num, Point(0, -1)),
+        Step { dir: U, num } => push_into_vec_n(&mut v, *num, Point(0, 1)),
+        Step { dir: R, num } => push_into_vec_n(&mut v, *num, Point(1, 0)),
+        Step { dir: L, num } => push_into_vec_n(&mut v, *num, Point(-1, 0)),
     });
     v
 }
@@ -78,8 +64,8 @@ fn solve(input: &str) {
         .iter()
         .filter(|x| first_line.contains(x))
         .map(|intr| {
-            points[0].iter().position(|x| x == *intr).unwrap()
-                + points[1].iter().position(|x| x == *intr).unwrap()
+            points[0].iter().position(|x| x == intr).unwrap()
+                + points[1].iter().position(|x| x == intr).unwrap()
         })
         .filter(|x| *x != 0)
         .min();
