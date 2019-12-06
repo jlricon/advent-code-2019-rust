@@ -46,14 +46,12 @@ fn calc_for_param(i: usize, j: usize) -> usize {
         match op {
             OpCode::Add => {
                 inp[p3] = inp[p1] + inp[p2];
-                sp += 4;
             }
             OpCode::Mult => {
                 inp[p3] = inp[p1] * inp[p2];
-                sp += 4;
             }
-            OpCode::Halt => break,
+            OpCode::Halt => return inp[0],
         }
+        sp += 4
     }
-    inp[0]
 }
