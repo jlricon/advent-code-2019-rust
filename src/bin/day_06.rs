@@ -3,8 +3,7 @@ struct OrbitPair {
     orbited: String,
     orbiter: String,
 }
-use itertools::Itertools;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 fn count_orbits(orbiter: &str, graph: &HashMap<String, String>) -> u32 {
     if orbiter == "COM" {
         0

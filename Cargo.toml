@@ -5,3 +5,10 @@ name = "advent-code-2019-rust"
 version = "0.1.0"
 [dependencies]
 itertools = "*"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "bench6"
+harness = false
