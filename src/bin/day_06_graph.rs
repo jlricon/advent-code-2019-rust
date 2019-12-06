@@ -3,7 +3,7 @@ struct OrbitPair {
     orbited: String,
     orbiter: String,
 }
-use itertools::Itertools;
+
 use std::collections::{HashMap, HashSet};
 use std::iter::FromIterator;
 
@@ -22,9 +22,8 @@ fn get_hierar<'a>(
     if orbiter == "COM" {
         v
     } else {
-        let mut v2 = v.clone();
-        let parent = graph.get(orbiter).unwrap();
-        v2.push(*parent);
+        let parent = *graph.get(orbiter).unwrap();
+        let v2 = v.into_iter().chain(std::iter::once(parent)).collect();
         get_hierar(parent, graph, v2)
     }
 }
@@ -32,7 +31,7 @@ fn get_jumps_to(santa_and_me: &HashMap<&str, Vec<&str>>, intersec_spot: &str, wh
     santa_and_me
         .get(who)
         .unwrap()
-        .into_iter()
+        .iter()
         .enumerate()
         .take_while(|v| *v.1 != intersec_spot)
         .map(|v| v.0)
@@ -55,10 +54,10 @@ fn main() {
 }
 
 fn get_jumps(orbits: Vec<OrbitPair>) -> usize {
-    let mut graph: HashMap<&str, &str> = HashMap::new();
-    orbits.iter().for_each(|orbit| {
-        graph.insert(&orbit.orbiter, &orbit.orbited);
-    });
+    let graph: HashMap<&str, &str> = orbits
+        .iter()
+        .map(|orbit| (orbit.orbiter.as_str(), orbit.orbited.as_str()))
+        .collect();
 
     let santa_and_me: HashMap<&str, Vec<&str>> = orbits
         .iter()
@@ -70,17 +69,15 @@ fn get_jumps(orbits: Vec<OrbitPair>) -> usize {
             )
         })
         .collect();
-    let my_planets: HashSet<&&str> =
-        HashSet::from_iter(santa_and_me.get("SAN").unwrap().into_iter());
-    let santa_planets: HashSet<&&str> =
-        HashSet::from_iter(santa_and_me.get("YOU").unwrap().into_iter());
+    let my_planets: HashSet<&&str> = HashSet::from_iter(santa_and_me.get("SAN").unwrap().iter());
+    let santa_planets: HashSet<&&str> = HashSet::from_iter(santa_and_me.get("YOU").unwrap().iter());
     let intersec: HashSet<&&&str> =
         HashSet::intersection(&my_planets, &santa_planets).collect::<HashSet<&&&str>>();
     // Find hops to first common planet
     let intersec_spot = santa_and_me
         .get("YOU")
         .unwrap()
-        .into_iter()
+        .iter()
         .filter(|x| intersec.contains(x))
         .nth(0)
         .unwrap();
