@@ -1,7 +1,8 @@
-use advent_code_2019_rust::{get_jumps, str_to_orbits};
+use advent_code_2019_rust::day6::{get_jumps, str_to_orbits};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::fs;
 use std::path;
+
 fn benchf(tst: &str) {
     let orbits = str_to_orbits(tst);
     let jumps = get_jumps(orbits);

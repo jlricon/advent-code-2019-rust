@@ -1,4 +1,5 @@
-use advent_code_2019_rust::{get_jumps, str_to_orbits, OrbitPair};
+use advent_code_2019_rust::day6::{get_jumps, str_to_orbits, OrbitPair};
+
 fn main() {
     let orbits: Vec<OrbitPair> = str_to_orbits(include_str!("day_06_data.txt"));
     let res = get_jumps(orbits);

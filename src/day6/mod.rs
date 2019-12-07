@@ -1,8 +1,46 @@
+use std::collections::{HashMap, HashSet};
+use std::iter::FromIterator;
 #[derive(Debug)]
 pub struct OrbitPair {
     orbited: String,
     orbiter: String,
 }
+
+fn count_orbits(orbiter: &str, graph: &HashMap<&str, &str>) -> u32 {
+    if orbiter == "COM" {
+        0
+    } else {
+        1 + count_orbits(graph.get(orbiter).unwrap(), graph)
+    }
+}
+
+fn get_hierar<'a>(
+    orbiter: &'a str,
+    graph: &HashMap<&'a str, &'a str>,
+    v: Vec<&'a str>,
+) -> Vec<&'a str> {
+    match orbiter {
+        "COM" => v,
+        _ => {
+            let parent = *graph.get(orbiter).unwrap();
+            let v2 = v.into_iter().chain(std::iter::once(parent)).collect();
+            get_hierar(parent, graph, v2)
+        }
+    }
+}
+
+fn get_jumps_to(santa_and_me: &HashMap<&str, Vec<&str>>, intersec_spot: &str, who: &str) -> usize {
+    santa_and_me
+        .get(who)
+        .unwrap()
+        .iter()
+        .enumerate()
+        .take_while(|v| *v.1 != intersec_spot)
+        .map(|v| v.0)
+        .max()
+        .unwrap()
+}
+
 pub fn get_jumps(orbits: Vec<OrbitPair>) -> (usize, usize) {
     let graph: HashMap<&str, &str> = orbits
         .iter()
@@ -21,6 +59,7 @@ pub fn get_jumps(orbits: Vec<OrbitPair>) -> (usize, usize) {
         })
         .collect();
     let my_planets: HashSet<&&str> = HashSet::from_iter(santa_and_me.get("SAN").unwrap().iter());
+
     let santa_planets: HashSet<&&str> = HashSet::from_iter(santa_and_me.get("YOU").unwrap().iter());
     let intersec: HashSet<&&&str> =
         HashSet::intersection(&my_planets, &santa_planets).collect::<HashSet<&&&str>>();
@@ -37,6 +76,7 @@ pub fn get_jumps(orbits: Vec<OrbitPair>) -> (usize, usize) {
     let san_to_inter = get_jumps_to(&santa_and_me, intersec_spot, "SAN");
     (me_to_inter + san_to_inter + 2, norbits as usize)
 }
+
 pub fn str_to_orbits(x: &str) -> Vec<OrbitPair> {
     x.lines()
         .map(|x| OrbitPair {

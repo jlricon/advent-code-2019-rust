@@ -1,4 +1,4 @@
-pub mod lib;
+mod day6;
 fn main() {
     println!("Hello, world!");
 }
