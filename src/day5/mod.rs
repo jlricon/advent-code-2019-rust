@@ -430,14 +430,4 @@ mod tests {
             }
         );
     }
-    #[test]
-    fn test_run5_real() {
-        let inp: Vec<i64> =
-            "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5"
-                .split(',')
-                .map(|x| x.parse::<i64>().unwrap())
-                .collect();
-        let ret = run_five(&inp, vec![9, 8, 7, 6, 5]);
-        assert_eq!(ret, Some(139629729));
-    }
 }
