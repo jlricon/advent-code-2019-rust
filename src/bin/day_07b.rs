@@ -113,3 +113,4 @@
 //    let ret = solve2("gits/advent-code-2019-rust/src/bin/day_07_data.txt").unwrap();
 //    dbg!(ret);
 //}
+fn main() {}

@@ -3,12 +3,13 @@ authors = ["Jose Luis <joseluisr@twitter.com>"]
 edition = "2018"
 name = "advent-code-2019-rust"
 version = "0.1.0"
+[[bench]]
+harness = false
+name = "bench6"
+
 [dependencies]
 itertools = "*"
+rayon = "*"
 
 [dev-dependencies]
 criterion = "0.3"
-
-[[bench]]
-name = "bench6"
-harness = false
