@@ -36,6 +36,7 @@ fn main() {
     let input = Intcode::read_input(include_str!("day_13_data.txt").trim());
 
     let mut t = Intcode::new(&input);
+
     while !t.is_finished() {
         t.compute();
     }

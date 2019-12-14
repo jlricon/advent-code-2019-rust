@@ -33,26 +33,13 @@ impl Reaction {
 }
 type Chemical = String;
 type ChemicalToAmount = HashMap<String, usize>;
-fn get_ore(
-    m: &Chemical,
-    map: &HashMap<Chemical, ChemicalToAmount>,
-    mut cache: &mut ChemicalToAmount,
-) -> usize {
-    if m == "ORE" {
-        1
-    } else {
-        let reac = map.get(m).unwrap();
-
-        reac.iter()
-            .map(|(k, v)| match cache.get(k) {
-                None => {
-                    let res = get_ore(k, map, cache);
-                    cache.insert(k.to_string(), res);
-                    v * res
-                }
-                Some(val) => v * val,
-            })
-            .sum()
+fn get_ore(m: &Chemical, n: usize, map: &HashMap<Chemical, ChemicalToAmount>) -> usize {
+    let mut need = HashMap::new();
+    let mut store = HashMap::new();
+    let mut ore_needed = 0;
+    need.insert(m, n);
+    while need.len() != 0 {
+        // How much
     }
 }
 fn main() {
