@@ -7,6 +7,7 @@ const FINISHED: u8 = 0;
 const RUNNING: u8 = 1;
 const WAITING_FOR_INPUT: u8 = 2;
 
+#[derive(Debug)]
 pub struct Intcode {
     pc: usize,
     ops: IntcodeProg,

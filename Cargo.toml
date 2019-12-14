@@ -9,7 +9,8 @@ name = "bench6"
 
 [dependencies]
 itertools = "*"
-rayon = "*"
+#num = "*"
+#rayon = "*"
 
 [dev-dependencies]
 criterion = "0.3"
