@@ -1,5 +1,5 @@
 use std::collections::VecDeque;
-
+//https://github.com/wampiedriessen/adventofcode/blob/76375a66119c2e53575e9cef45d76d38faaaccda/2019/src/intcode.rs
 type IntcodeType = i64;
 pub type IntcodeProg = Vec<IntcodeType>;
 
@@ -13,7 +13,7 @@ pub struct Intcode {
     ops: IntcodeProg,
     read_queue: VecDeque<IntcodeType>,
     write_queue: VecDeque<IntcodeType>,
-    state: u8,
+    pub state: u8,
     relative_base: IntcodeType,
 }
 
@@ -57,7 +57,13 @@ impl Intcode {
         }
         self.state = FINISHED;
     }
+    pub fn is_waiting(&self) -> bool {
+        return self.state == WAITING_FOR_INPUT;
+    }
 
+    pub fn has_output(&self) -> bool {
+        return self.write_queue.len() != 0;
+    }
     pub fn result(&self) -> i64 {
         return self.ops[0] as i64;
     }
