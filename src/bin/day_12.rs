@@ -6,7 +6,7 @@
 use std::collections::HashMap;
 
 use itertools::{zip_eq, Itertools};
-//use num::Integer;
+use num::Integer;
 
 type Velocity = [i32; 3];
 type Position = [i32; 3];

@@ -1,8 +1,5 @@
 use itertools::iproduct;
 use itertools::Itertools;
-use rayon::iter::IntoParallelIterator;
-
-use rayon::iter::ParallelIterator;
 use std::cmp::Ordering;
 use std::cmp::Ordering::Equal;
 use std::collections::HashMap;
@@ -85,7 +82,7 @@ impl Field {
     pub fn get_asteroids_visible_for_all(&self) -> Vec<(Position, Option<usize>)> {
         let prod: Vec<(usize, usize)> = iproduct!(1..=self.nrow, 1..=self.ncol).collect();
         use Matter::*;
-        prod.into_par_iter()
+        prod.into_iter()
             .map(|rcol| match self.get(rcol.0 as i32, rcol.1 as i32) {
                 Empty => (rcol, None),
                 Asteroid => (rcol, Some(self.get_n_visible_asteroids(rcol.0, rcol.1))),

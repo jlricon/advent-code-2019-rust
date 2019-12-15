@@ -1,4 +1,3 @@
-use rayon::prelude::*;
 use std::fs;
 use std::time::Instant;
 
@@ -81,7 +80,7 @@ struct TaskA<'a> {
 impl<'a> TaskA<'a> {
     pub fn solve(&self) -> Option<(usize, i32, i32)> {
         self.field
-            .par_iter()
+            .iter()
             .map(|i| {
                 let mut total = self
                     .field

@@ -1,8 +1,4 @@
-use advent_code_2019_rust::intcode::{Intcode, IntcodeProg};
-
-pub struct Day13 {
-    input: IntcodeProg,
-}
+use advent_code_2019_rust::intcode::Intcode;
 
 #[derive(Clone)]
 enum Tile {
@@ -17,7 +13,6 @@ fn run1() -> i32 {
     let input = Intcode::read_input(include_str!("day_13_data.txt").trim());
     let mut p = Intcode::new(&input);
     let mut grid: Vec<Vec<Tile>> = Vec::new();
-
     p.compute();
 
     while let Some(x1) = p.stdout() {

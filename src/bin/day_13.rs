@@ -54,7 +54,7 @@ fn print_hashmap(p2: Field) {
     let max_y = p2.keys().map(|c| c[1]).max().unwrap();
     let min_x = p2.keys().map(|c| c[0]).min().unwrap();
     let min_y = p2.keys().map(|c| c[1]).min().unwrap();
-    for i in (min_y..=max_y) {
+    for i in min_y..=max_y {
         for j in min_x..=max_x {
             if let Some(kind) = p2.get(&[j, i]) {
                 print!("{}", kind);

@@ -1,6 +1,4 @@
 use advent_code_2019_rust::intcode::Intcode;
-use itertools::Itertools;
-use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::fmt::{Error, Formatter};
 

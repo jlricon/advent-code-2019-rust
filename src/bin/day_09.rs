@@ -1,8 +1,4 @@
-use advent_code_2019_rust::intcode::{Intcode, IntcodeProg};
-
-pub struct Day09 {
-    input: IntcodeProg,
-}
+use advent_code_2019_rust::intcode::Intcode;
 
 // Shamelessly stolen from https://github.com/AxlLind/AdventOfCode2019/blob/master/src/bin/9.rs
 
