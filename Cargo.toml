@@ -10,6 +10,7 @@ name = "bench6"
 [dependencies]
 itertools = "*"
 num = "0.2.0"
+pathfinding = "2.0.1"
 
 [dev-dependencies]
 criterion = "0.3"
