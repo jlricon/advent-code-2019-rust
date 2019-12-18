@@ -11,8 +11,11 @@ name = "bench6"
 itertools = "*"
 num = "0.2.0"
 pathfinding = "2.0.1"
+rayon = "*"
 
 [dev-dependencies]
 criterion = "0.3"
+
+[profile]
 [profile.release]
 lto = true
