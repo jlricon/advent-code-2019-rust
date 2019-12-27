@@ -1,8 +1,8 @@
 use advent_code_2019_rust::intcode::Intcode;
 use itertools::iproduct;
-fn print_vec(v: &Vec<i64>) {
-    v.iter().for_each(|n| print!("{}", *n as u8 as char))
-}
+// fn print_vec(v: &Vec<i64>) {
+//     v.iter().for_each(|n| print!("{}", *n as u8 as char))
+// }
 const NEWLINE: i64 = 10;
 const BLOCK: i64 = 35;
 const DIRS: [(i64, i64); 4] = [(1, 0), (-1, 0), (0, 1), (0, -1)];

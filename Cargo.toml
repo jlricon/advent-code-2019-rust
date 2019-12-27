@@ -12,6 +12,7 @@ itertools = "*"
 num = "0.2.0"
 pathfinding = "2.0.1"
 rayon = "*"
+im ="*"
 
 [dev-dependencies]
 criterion = "0.3"
