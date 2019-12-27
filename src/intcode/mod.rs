@@ -9,6 +9,7 @@ const WAITING_FOR_INPUT: u8 = 2;
 
 #[derive(Debug)]
 pub struct Intcode {
+    og_program: IntcodeProg,
     pc: usize,
     ops: IntcodeProg,
     read_queue: VecDeque<IntcodeType>,
@@ -18,9 +19,18 @@ pub struct Intcode {
 }
 
 impl Intcode {
+    pub fn reset(&mut self) {
+        self.pc = 0;
+        self.ops = self.og_program.clone();
+        self.read_queue = VecDeque::new();
+        self.write_queue = VecDeque::new();
+        self.state = RUNNING;
+        self.relative_base = 0;
+    }
     pub fn new(program: &IntcodeProg) -> Intcode {
         Intcode {
             pc: 0,
+            og_program: program.clone(),
             ops: program.clone(),
             read_queue: VecDeque::new(),
             write_queue: VecDeque::new(),
